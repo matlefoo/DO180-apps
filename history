@@ -1,0 +1,28 @@
+210  git clone https://github.com/matlefoo/DO180-apps
+  211  ls
+  212  cd DO180-apps/
+  213  git checkout master
+  214  git checkout -b s2i
+  215  git push -u origin s2i
+  216  ls
+  217  cd php-helloworld/
+  218  ls
+  219  cat index.php 
+  220  oc login -u matlefoo -p f04ea88f6d5e47b09311 https://api.na45.prod.nextcle.com:6443
+  221  oc new-project matlefoo-s2i
+  222  oc new-app --as-deployment-config php:7.3 --name=php-helloworld https://github.com/matlefoo/DO180-apps#s2i --context-dir php-helloworld
+  223  oc get pods -w
+  224  oc get pods
+  225  oc expose service php-helloworld --name matlefoo-helloworld
+  226  oc get routes
+  227  curl matlefoo-helloworld-matlefoo-s2i.apps.na45.prod.nextcle.com
+  228  cd ~/DO180-apps/php-helloworld
+  229  vim index.php 
+  230  git add .
+  231  git commit -m 'Changed index page contents.'
+  232  git push origin s2i
+  233  oc start-build php-helloworld
+  234  oc get pods -w
+  235  oc get pods 
+  236  curl matlefoo-helloworld-matlefoo-s2i.apps.na45.prod.nextcle.com
+  237  history 
